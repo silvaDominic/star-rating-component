@@ -12,8 +12,10 @@ const FILL_TYPE = {
 
 const Rating = ({value = 0, emptyIcon, halfFilledIcon, filledIcon, steps}) => {
     const [valArr, setValArr] = useState([]);
+    const [prevValArr, setPrevValArr] = useState([]);
 
     useEffect(() => {
+        setPrevValArr(createRatingArray(value));
         setValArr(createRatingArray(value));
     }, [value]);
 
@@ -33,11 +35,20 @@ const Rating = ({value = 0, emptyIcon, halfFilledIcon, filledIcon, steps}) => {
             rating = rating - 0.5;
         }
         setValArr((prev) => {
-            if (JSON.stringify(prev) === JSON.stringify(createRatingArray(rating))) {
+            if (JSON.stringify(prev) === JSON.stringify(prevValArr)) {
+                setPrevValArr(EMPTY_RATING);
                 return EMPTY_RATING;
             }
+            setPrevValArr(createRatingArray(rating));
             return createRatingArray(rating);
         });
+    }
+
+    function onHover(e, rating) {
+        if (isLessThanHalf(e)) {
+            rating = rating - 0.5;
+        }
+        setValArr(createRatingArray(rating));
     }
 
     // Utility function to calculate if the mouse event happened on the left side of the target or the right side.
@@ -70,6 +81,8 @@ const Rating = ({value = 0, emptyIcon, halfFilledIcon, filledIcon, steps}) => {
                data-testid="rating-icon"
                alt="Rate"
                key={index}
+               onMouseEnter={(e) => onHover(e, index + 1)}
+               onMouseLeave={() => setValArr(prevValArr)}
                onClick={(e) => onClick(e, index + 1)}
           />
         )
