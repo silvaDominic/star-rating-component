@@ -29,6 +29,9 @@ const Rating = ({value = 0, emptyIcon, halfFilledIcon, filledIcon, steps}) => {
     }
 
     function onClick(e, rating) {
+        if (isLessThanHalf(e)) {
+            rating = rating - 0.5;
+        }
         setValArr((prev) => {
             if (JSON.stringify(prev) === JSON.stringify(createRatingArray(rating))) {
                 return EMPTY_RATING;
