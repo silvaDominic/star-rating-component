@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './Rating.css';
 
 const MAX_RATING = 5;
+const EMPTY_RATING = [0,0,0,0,0];
 
 const FILL_TYPE = {
     EMPTY: 0,
@@ -25,6 +26,15 @@ const Rating = ({value = 0, emptyIcon, halfFilledIcon, filledIcon, steps}) => {
             temp.push(0);
         }
         return temp;
+    }
+
+    function onClick(e, rating) {
+        setValArr((prev) => {
+            if (JSON.stringify(prev) === JSON.stringify(createRatingArray(rating))) {
+                return EMPTY_RATING;
+            }
+            return createRatingArray(rating);
+        });
     }
 
     // Utility function to calculate if the mouse event happened on the left side of the target or the right side.
@@ -57,6 +67,7 @@ const Rating = ({value = 0, emptyIcon, halfFilledIcon, filledIcon, steps}) => {
                data-testid="rating-icon"
                alt="Rate"
                key={index}
+               onClick={(e) => onClick(e, index + 1)}
           />
         )
     }
