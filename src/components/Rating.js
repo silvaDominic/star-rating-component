@@ -10,10 +10,6 @@ const FILL_TYPE = {
 }
 
 const Rating = ({value = 0, emptyIcon, halfFilledIcon, filledIcon, steps}) => {
-    emptyIcon =  '/icons/stars/empty.svg';
-    filledIcon =  '/icons/stars/filled.svg';
-    halfFilledIcon =  '/icons/stars/half.svg';
-
     const [valArr, setValArr] = useState([]);
 
     useEffect(() => {
