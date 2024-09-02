@@ -5,9 +5,9 @@ import Rating from "./components/Rating";
 
 const title = "Rating Component";
 
-const EMPTY_ICON_PATH = '/icons/stars/empty.svg';
-const FILLED_ICON_PATH = '/icons/stars/filled.svg';
-const HALF_FILL_ICON_PATH = '/icons/stars/half.svg';
+export const EMPTY_ICON_PATH = '/icons/stars/empty.svg';
+export const FILLED_ICON_PATH = '/icons/stars/filled.svg';
+export const HALF_FILL_ICON_PATH = '/icons/stars/half.svg';
 
 const App = () => {
 
